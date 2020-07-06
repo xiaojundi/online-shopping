@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "blueimp-md5": "^2.10.0",
     "@antv/data-set": "^0.10.2",
     "antd": "^3.17.0",
     "axios": "^0.18.0",
     "babel-plugin-import": "^1.11.0",
     "bizcharts": "^3.5.2",
+    "blueimp-md5": "^2.10.0",
     "customize-cra": "^0.2.12",
     "draft-js": "0.10.5",
     "draftjs-to-html": "^0.8.4",
@@ -26,9 +26,12 @@
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
+    "react-slick": "^0.26.1",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
+    "slick-carousel": "^1.8.1",
     "store": "^2.0.12"
   },
   "scripts": {

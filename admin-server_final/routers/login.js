@@ -1,6 +1,6 @@
 const md5 = require('blueimp-md5');
 
-module.exports = function login(router, Usermodel, RoleModel) {
+module.exports = function login(router, UserModel, RoleModel) {
   // 登陆
   router.post('/login', (req, res) => {
     const { username, password } = req.body;

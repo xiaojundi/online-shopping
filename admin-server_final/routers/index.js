@@ -33,6 +33,9 @@ require('./category')(router, CategoryModel);
 //角色路由
 require('./role')(router, UserModel, RoleModel);
 
+//购物车路由
+require('./shoppingCart')(router, ShoppingCartModel);
+
 /*
 得到指定数组的分页信息对象
  */

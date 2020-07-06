@@ -151,3 +151,27 @@ jsonp解决ajax跨域的原理
    浏览器端:
       收到响应自动执行函数调用的js代码, 也就执行了提前定义好的回调函数, 并得到了需要的结果数据
  */
+
+// 添加产品到购物车
+export const reqAddToCart = async (cartProduct, userId) => {
+  await ajax(BASE + '/manage/shoppingCart/addProdcut', cartProduct, 'POST');
+  return reqGetShoppingCartList(userId);
+};
+
+export const reqGetShoppingCartList = (userId) => {
+  return ajax(
+    BASE + '/manage/shoppingCart/getShoppingCartList',
+    { userId },
+    'POST'
+  );
+};
+
+export const reqRemoveFromCart = async (productId, userId) => {
+  console.log('delete one');
+  await ajax(
+    BASE + '/manage/shoppingCart/deleteProduct',
+    { productId, userId },
+    'POST'
+  );
+  return reqGetShoppingCartList(userId);
+};

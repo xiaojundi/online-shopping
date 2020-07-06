@@ -3,6 +3,8 @@
  */
 import { combineReducers } from 'redux';
 import market from './market/reducer';
+import shoppingCart from './shoppingCart/reducer';
+import displayProductDetail from './marketProductDetail/reducer';
 
 /*
 用来管理头部标题的reducer函数
@@ -58,4 +60,6 @@ export default combineReducers({
   headTitle,
   user,
   market,
+  shoppingCart,
+  displayProductDetail,
 });
