@@ -120,7 +120,7 @@ class LeftNav extends Component {
           pre.push(
             <Menu.Item key={item.key}>
               <Link
-                to={'/admin' + item.key}
+                to={item.key}
                 onClick={() => this.props.setHeadTitle(item.title)}
               >
                 <Icon type={item.icon} />

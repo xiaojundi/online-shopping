@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Menu, Dropdown } from 'antd';
 import { connect } from 'react-redux';
-import shoppingCart from '../../redux/shoppingCart/reducer';
 import {
   getShoppingCartList,
   removeProductFromShoppingCart,
 } from '../../redux/shoppingCart/action';
-import { BASE_IMG_URL } from '../../utils/constants';
+import shoppingCartitem from '../shopping-cart-item/shopping-cart-item';
 import './shopping-cart.less';
 
 class ShoppingCart extends Component {
@@ -33,29 +32,10 @@ class ShoppingCart extends Component {
         {this.props.products.map((product) => {
           console.log('######');
           console.log(product);
-          return (
-            <Menu.Item key={product._id} style={{ cursor: 'auto' }}>
-              <div className='shoppingCardItem'>
-                <img src={BASE_IMG_URL + product.imgs} alt='图片' />
-                <div>数量： x{product.quantity}</div>
-                <div>总价格价格： {product.quantity * product.price}</div>
-                <div>名称： {product.name}</div>
-                <div>
-                  <a
-                    href='javascript:'
-                    className='deleteCartItem'
-                    onClick={() => {
-                      this.removeProductFromCart(
-                        product.productId, //商品id
-                        this.props.user._id
-                      );
-                    }}
-                  >
-                    删除
-                  </a>
-                </div>
-              </div>
-            </Menu.Item>
+          return shoppingCartitem(
+            product,
+            this.props.user._id,
+            this.removeProductFromCart
           );
         })}
       </Menu>

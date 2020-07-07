@@ -31,7 +31,7 @@ require('./product')(router, ProductModel, pageFilter);
 require('./category')(router, CategoryModel);
 
 //角色路由
-require('./role')(router, UserModel, RoleModel);
+require('./role')(router, RoleModel);
 
 //购物车路由
 require('./shoppingCart')(router, ShoppingCartModel);

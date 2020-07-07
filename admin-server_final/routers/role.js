@@ -1,8 +1,9 @@
 module.exports = function role(router, RoleModel) {
   // 添加角色
   router.post('/manage/role/add', (req, res) => {
+    console.log(req.body);
     const { roleName } = req.body;
-    RoleModel.create({ name: roleName })
+    RoleModel.create({ username: roleName })
       .then((role) => {
         res.send({ status: 0, data: role });
       })
