@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { setHeadTitle } from '../../redux/actions';
 import {
   getShoppingCartList,
   removeProductFromShoppingCart,
@@ -70,7 +71,7 @@ class ShoppingCartList extends Component {
   addAllPrice = () => {
     let sum = 0;
     this.props.products.map((product) => {
-      sum = sum + product.price;
+      sum = sum + product.price * product.quantity;
     });
     return sum;
   };
@@ -97,12 +98,16 @@ class ShoppingCartList extends Component {
           callback: this.removeProductFromCart,
         },
         quantity: { product, userId: this.props.user._id },
-        price: product.price,
+        price: product.price * product.quantity + '元',
       };
     }));
   };
 
   render() {
+    if (!this.props.user._id) {
+      this.props.history.push('/');
+    }
+    this.props.setHeadTitle('所购商品列表');
     return (
       <div className='shopping-cart-list col-12 col-offset-6'>
         <Row>
@@ -128,5 +133,6 @@ export default connect(
     removeProductFromShoppingCart,
     subtractQuantity,
     addQuantity,
+    setHeadTitle,
   }
 )(ShoppingCartList);

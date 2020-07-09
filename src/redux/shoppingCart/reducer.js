@@ -57,12 +57,12 @@ export default function shoppingCart(state = initialState, action) {
     case ADD_QUANTITY:
       return {
         ...state,
-        products: action.payload || [],
+        products: action.payload.data || [],
       };
     case SUB_QUANTITY:
       return {
         ...state,
-        products: action.payload || [],
+        products: action.payload.data || [],
       };
     case EMPTY_CART:
       return {

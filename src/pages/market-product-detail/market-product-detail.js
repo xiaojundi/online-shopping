@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Slider from 'react-slick';
 import { Row, Col, Button, Icon } from 'antd';
+import { setHeadTitle } from '../../redux/actions';
 import { addToCart } from '../../redux/shoppingCart/action';
 import './market-product-detail.less';
 import { Redirect } from 'react-router-dom';
@@ -39,6 +40,7 @@ class MarketProductDetail extends Component {
   };
 
   render() {
+    this.props.setHeadTitle('商品详情');
     const product = this.props.displayProductDetail;
     const user = this.props.user;
     let imgs = product.imgs;
@@ -94,5 +96,5 @@ export default connect(
     user: state.user,
     displayProductDetail: state.displayProductDetail,
   }),
-  { addToCart }
+  { addToCart, setHeadTitle }
 )(MarketProductDetail);

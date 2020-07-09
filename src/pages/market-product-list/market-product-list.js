@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import MidNav from '../../components/mid-nav';
 import MarketContainer from '../../components/market-container/market-container';
 import { MARKET_MENU } from '../../utils/constants';
@@ -8,6 +9,7 @@ import './market-product-list.less';
 import Slider from 'react-slick';
 import banner_1 from './images/banner_1.jpg';
 import banner_2 from './images/banner_2.jpg';
+import { setHeadTitle } from '../../redux/actions';
 
 const settings = {
   dots: true,
@@ -18,7 +20,7 @@ const settings = {
   arrows: false,
 };
 
-export default class MarketProductList extends Component {
+class MarketProductList extends Component {
   state = {
     products: [],
     productShow: [],
@@ -66,6 +68,7 @@ export default class MarketProductList extends Component {
     this.getCategoryMenu();
   }
   render() {
+    this.props.setHeadTitle('欢迎选购');
     return (
       <>
         <Slider {...settings}>
@@ -86,3 +89,5 @@ export default class MarketProductList extends Component {
     );
   }
 }
+
+export default connect(() => {}, { setHeadTitle })(MarketProductList);

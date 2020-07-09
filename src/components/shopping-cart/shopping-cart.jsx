@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Menu, Dropdown } from 'antd';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   getShoppingCartList,
@@ -43,7 +44,9 @@ class ShoppingCart extends Component {
     return (
       <Dropdown overlay={menu}>
         <a className='ant-dropdown-link' onClick={(e) => e.preventDefault()}>
-          购物车{`(${this.props.products.length})`}
+          <Link to='/market/shoppingcartlist'>
+            购物车{`(${this.props.products.length})`}
+          </Link>
         </a>
       </Dropdown>
     );
