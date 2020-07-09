@@ -57,23 +57,12 @@ export default function shoppingCart(state = initialState, action) {
     case ADD_QUANTITY:
       return {
         ...state,
-        products: state.products.map((product) =>
-          product._id === action.payload._id
-            ? { ...product, quantity: product.quantity + 1 }
-            : product
-        ),
+        products: action.payload || [],
       };
     case SUB_QUANTITY:
       return {
         ...state,
-        products: state.products.map((product) =>
-          product._id === action.payload._id
-            ? {
-                ...product,
-                quantity: product.quantity !== 1 ? product.quantity - 1 : 1,
-              }
-            : product
-        ),
+        products: action.payload || [],
       };
     case EMPTY_CART:
       return {

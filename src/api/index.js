@@ -167,10 +167,18 @@ export const reqGetShoppingCartList = (userId) => {
 };
 
 export const reqRemoveFromCart = async (productId, userId) => {
-  console.log('delete one');
   await ajax(
     BASE + '/manage/shoppingCart/deleteProduct',
     { productId, userId },
+    'POST'
+  );
+  return reqGetShoppingCartList(userId);
+};
+
+export const reqUpdateShoppingCartItem = async (product, userId) => {
+  await ajax(
+    BASE + '/manage/shoppingcart/updateShoppingCartItem',
+    product,
     'POST'
   );
   return reqGetShoppingCartList(userId);

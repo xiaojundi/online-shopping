@@ -3,11 +3,18 @@ import { connect } from 'react-redux';
 import {
   getShoppingCartList,
   removeProductFromShoppingCart,
+  subtractQuantity,
+  addQuantity,
 } from '../../redux/shoppingCart/action';
-import { Table, Divider, Tag, Checkbox, Menu } from 'antd';
+import { Table, Button, Tag, Checkbox, Menu, Row, Col } from 'antd';
 import shoppingCartItem from '../../components/shopping-cart-item/shopping-cart-item';
+import './shopping-cart-list.less';
 
 class ShoppingCartList extends Component {
+  state = {
+    totalPrice: 0,
+  };
+
   onChange = (index) => {
     console.log(index);
   };
@@ -38,6 +45,19 @@ class ShoppingCartList extends Component {
         title: '数量',
         dataIndex: 'quantity',
         key: 'quantity',
+        render: ({ product, userId }) => (
+          <div>
+            <Button
+              onClick={() => this.props.subtractQuantity(product, userId)}
+            >
+              -
+            </Button>
+            {product.quantity}
+            <Button onClick={() => this.props.addQuantity(product, userId)}>
+              +
+            </Button>
+          </div>
+        ),
       },
       {
         title: '总价',
@@ -47,8 +67,24 @@ class ShoppingCartList extends Component {
     ]);
   };
 
+  addAllPrice = () => {
+    let sum = 0;
+    this.props.products.map((product) => {
+      sum = sum + product.price;
+    });
+    return sum;
+  };
+
   removeProductFromCart = (productId, userId) => {
     this.props.removeProductFromShoppingCart(productId, userId);
+  };
+
+  addProdctQuantity = (product, userId) => {
+    this.props.addQuantity(product, userId);
+  };
+
+  subtractProductQuantity = (product, userId) => {
+    this.props.subtractQuantity(product, userId);
   };
 
   initData = () => {
@@ -60,36 +96,26 @@ class ShoppingCartList extends Component {
           userId: this.props.user._id,
           callback: this.removeProductFromCart,
         },
-        quantity: product.quantity,
+        quantity: { product, userId: this.props.user._id },
         price: product.price,
       };
     }));
-    // [
-    //   {
-    //     key: '1',
-    //     product: 'John Brown',
-    //     quantity: 32,
-    //     price: 100,
-    //   },
-    //   {
-    //     key: '2',
-    //     product: 'John Brown',
-    //     quantity: 32,
-    //     price: 100,
-    //   },
-    //   {
-    //     key: '3',
-    //     product: 'John Brown',
-    //     quantity: 32,
-    //     price: 100,
-    //   },
-    // ]
   };
 
   render() {
     return (
-      <div>
-        <Table columns={this.initColumn()} dataSource={this.initData()} />
+      <div className='shopping-cart-list col-12 col-offset-6'>
+        <Row>
+          <Col span={18} offset={3}>
+            <Table columns={this.initColumn()} dataSource={this.initData()} />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={18} offset={3} className='shopping-cart-check-out'>
+            <span>总价：{this.addAllPrice()} 元</span>
+            <Button type='primary'>结账</Button>
+          </Col>
+        </Row>
       </div>
     );
   }
@@ -97,5 +123,10 @@ class ShoppingCartList extends Component {
 
 export default connect(
   (state) => ({ user: state.user, products: state.shoppingCart.products }),
-  { getShoppingCartList, removeProductFromShoppingCart }
+  {
+    getShoppingCartList,
+    removeProductFromShoppingCart,
+    subtractQuantity,
+    addQuantity,
+  }
 )(ShoppingCartList);

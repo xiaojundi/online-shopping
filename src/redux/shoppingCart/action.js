@@ -11,6 +11,7 @@ import {
   reqAddToCart,
   reqGetShoppingCartList,
   reqRemoveFromCart,
+  reqUpdateShoppingCartItem,
 } from '../../api';
 
 export const getShoppingCartList = (userId) => {
@@ -51,22 +52,34 @@ export const addToCart = (product, user) => {
     });
   };
 };
-export const removeFromCart = (product) => {
-  return {
-    type: REMOVE_FROM_CART,
-    payload: product,
+// export const removeFromCart = (product) => {
+//   return {
+//     type: REMOVE_FROM_CART,
+//     payload: product,
+//   };
+// };
+export const subtractQuantity = (product, userId) => {
+  return async (dispatch) => {
+    const newProduct = await reqUpdateShoppingCartItem(
+      {
+        ...product,
+        quantity: product.quantity - 1,
+      },
+      userId
+    );
+    dispatch({ type: SUB_QUANTITY, payload: newProduct });
   };
 };
-export const subtractQuantity = (product) => {
-  return {
-    type: SUB_QUANTITY,
-    payload: product,
-  };
-};
-export const addQuantity = (product) => {
-  return {
-    type: ADD_QUANTITY,
-    payload: product,
+export const addQuantity = (product, userId) => {
+  return async (dispatch) => {
+    const newProduct = await reqUpdateShoppingCartItem(
+      {
+        ...product,
+        quantity: product.quantity + 1,
+      },
+      userId
+    );
+    dispatch({ type: ADD_QUANTITY, payload: newProduct });
   };
 };
 export const emptyCart = () => {

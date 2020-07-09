@@ -61,4 +61,16 @@ module.exports = function shoppingCart(router, shoppingCartModel) {
         res.send({ status: 1, err });
       });
   });
+  router.post('/manage/shoppingCart/updateShoppingCartItem', (req, res) => {
+    const product = req.body;
+    console.log(product);
+    shoppingCartModel
+      .findOneAndUpdate({ _id: product._id }, product)
+      .then((oldProduct) => {
+        res.send({ statue: 0, data: { ...oldProduct, ...product } });
+      })
+      .catch((err) => {
+        res.send({ status: 1, err });
+      });
+  });
 };
